@@ -1,0 +1,10 @@
+# exposed ports
+ports:
+- port: 4000
+  onOpen: open-preview
+- port: 4001
+  onOpen: open-preview
+# start up tasks
+tasks:
+- init: npm install
+  command: npm run serve
