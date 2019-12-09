@@ -6,5 +6,5 @@ ports:
   onOpen: open-preview
 # start up tasks
 tasks:
-- init: npm install
-  command: npm run serve
+- init: cd server && npm install
+  command: npm run start:schema
