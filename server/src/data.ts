@@ -31,7 +31,7 @@ export const users: User[] = [
         id: 1,
         name: 'Alan Jhonnes',
         birthdate: '1990-03-13',
-        friendIds: [2, 3],
+        friendIds: [2],
     },
     {
         id: 2,

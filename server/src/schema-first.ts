@@ -1,5 +1,5 @@
 import { ApolloServer, gql } from 'apollo-server';
-import { addUser, addUserResultResolveType, getAge, users } from './data';
+import { addUser, addUserResultResolveType, getAge, users, getUsers, User } from './data';
 
 const typeDefs = gql`
 
@@ -7,10 +7,13 @@ const typeDefs = gql`
     id: ID!
     name: String!
     age: Int!
+    friendIds: [Int!]! 
+    friends: [User!]!
   }
 
   type Query {
     users: [User!]!
+    context: String!
   }
 
   type Mutation {
@@ -31,14 +34,23 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    users: () => users,
+    users: (obj: any, args: any, context: any) => {
+        if(context.viewer.roles !== "Admin") {
+            throw new Error("Not authorized");
+        }
+    },
+    context: (obj: any, args: any, context: any) => {
+        return JSON.stringify(context);
+    }
   },
   User: {
     age: getAge,
+    friends: (user: User) => getUsers(user.friendIds)
   },
   Mutation: {
     addUser: addUser,
   },
+
   AddUserResult: {
     __resolveType: addUserResultResolveType,
   },
@@ -48,7 +60,11 @@ const server = new ApolloServer(
   {
     typeDefs: typeDefs,
     resolvers: resolvers,
-
+    context: () => ({
+        viewer: {
+            name: 'User',
+        }
+    })
   },
 );
 
