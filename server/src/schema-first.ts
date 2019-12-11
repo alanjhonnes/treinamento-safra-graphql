@@ -35,9 +35,7 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     users: (obj: any, args: any, context: any) => {
-        if(context.viewer.roles !== "Admin") {
-            throw new Error("Not authorized");
-        }
+        return users;
     },
     context: (obj: any, args: any, context: any) => {
         return JSON.stringify(context);
