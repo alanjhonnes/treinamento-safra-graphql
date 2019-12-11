@@ -1,4 +1,3 @@
-# exposed ports
 ports:
 - port: 4000
   onOpen: open-preview
@@ -6,5 +5,11 @@ ports:
   onOpen: open-preview
 # start up tasks
 tasks:
-- init: cd server && npm install
-  command: npm run start:schema
+- command: cd server && npm install && npm run start:schema
+- command: cd front && npm install && npm start
+
+vscode:
+  extensions:
+    - cyrilletuzi.angular-schematics@2.2.2:jo/1thOzPLSapDisE7KHVw==
+    - ms-vscode.vscode-typescript-tslint-plugin@1.2.3:MioHhlbqHKgivweg8MqHrA==
+    - apollographql.vscode-apollo@1.12.1:0Ub6H46dWhAlGY8zWMaZBw==
