@@ -1,10 +1,13 @@
 ports:
 - port: 4000
-  onOpen: open-preview
+  onOpen: open-browser
 - port: 4001
-  onOpen: open-preview
+  onOpen: open-browser
+- port: 4200
+  onOpen: open-browser
 # start up tasks
 tasks:
+- init: npm i -g @angular/cli
 - command: cd server && npm install && npm run start:schema
 - command: cd front && npm install && npm start
 
